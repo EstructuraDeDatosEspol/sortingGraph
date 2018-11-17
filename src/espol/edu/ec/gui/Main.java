@@ -8,6 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import javafx.scene.control.Button;
 
 
 /**
@@ -20,8 +21,20 @@ public class Main extends Application{
     @Override
     public void start(Stage stage){
 
-        StackPane root = new StackPane();
-
+        ContentPane root = new ContentPane();
+        stage.setScene(new Scene(root));
+        stage.setMaximized(true);
+        stage.setMaxHeight(root.getMAX_HEIGHT());
+        stage.setMaxWidth(root.getMAX_WIDTH());
+        stage.setMinHeight(root.getMAX_HEIGHT() * 0.5);
+        stage.setMinWidth(root.getMAX_WIDTH() * 0.5); 
+        
+        root.getFlwTop().getChildren().addAll(new Button("adsadd"), new Button("Asdsadasd"), new Button("dsasdadsd"), new Button("asdasdsadsad"), 
+                new Button("adsadd"), new Button("Asdsadasd"), new Button("dsasdadsd"), new Button("asdasdsadsad"));
+        root.getFlwTop().setHgap(20); 
+        root.getVRight().getChildren().addAll(new Button("adsadd"), new Button("Asdsadasd"), new Button("dsasdadsd"), new Button("asdasdsadsad"), 
+                new Button("adsadd"), new Button("Asdsadasd"), new Button("dsasdadsd"), new Button("asdasdsadsad"));
+        root.getVRight().setSpacing(20);
         MyChart chart = new MyChart();
 
         Algorithms<Integer> algorithms = new Algorithms<>();
@@ -58,10 +71,7 @@ public class Main extends Application{
         chart.plotInsertionSortTimes( algorithms.getInsertionSortTimes(datos));
         chart.plotQuickSortTimes( algorithms.getQuickSortTimes(datos2));
 
-
-        root.getChildren().add(chart.getChart());
-
-        stage.setScene(new Scene(root, 800,600));
+        root.setCenter(chart.getChart());
 
         stage.show();
     }
