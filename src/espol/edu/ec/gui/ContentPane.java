@@ -5,11 +5,18 @@
  */
 package espol.edu.ec.gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.control.TabPane;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 
 /**
@@ -31,7 +38,7 @@ public class ContentPane extends BorderPane{
     /**
      * Panel alto de la pantalla
      */
-    private final FlowPane top;
+    private final TabPane top;
     
     /**
      * Panel derecho de la pantalla
@@ -52,7 +59,7 @@ public class ContentPane extends BorderPane{
      * Constructor de la clase
      */
     public ContentPane() {
-        top = new FlowPane();
+        top = new TabPane();
         right = new VBox();
         left = new VBox();
         bottom = new FlowPane();
@@ -71,16 +78,16 @@ public class ContentPane extends BorderPane{
         super.setMaxHeight(MAX_HEIGHT);
         super.setMinWidth(MAX_WIDTH * 0.5); 
         super.setMinHeight(MAX_HEIGHT * 0.5);
-        top.setOrientation(Orientation.HORIZONTAL);
         bottom.setOrientation(Orientation.HORIZONTAL); 
         right.setAlignment(Pos.BOTTOM_CENTER); 
+        flowTop();
     }
     
     /**
      * Panel alto
      * @return FlowPane
      */
-    public FlowPane getFlwTop() {
+    public TabPane getFlowTop() {
         return top;
     }
     
@@ -122,5 +129,15 @@ public class ContentPane extends BorderPane{
      */
     public double getMAX_HEIGHT() {
         return MAX_HEIGHT;
+    }
+
+    private void flowTop() {
+        top.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, new CornerRadii(8), Insets.EMPTY))); 
+        DropShadow shadow = new DropShadow();
+        shadow.setOffsetX(10);
+        shadow.setOffsetY(20); 
+        shadow.setRadius(10);
+        shadow.setWidth(30); 
+        top.setEffect(shadow); 
     }
 }

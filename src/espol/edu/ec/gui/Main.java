@@ -4,11 +4,9 @@ import espol.edu.ec.tda.MyChart;
 import espol.edu.ec.utils.Algorithms;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import javafx.scene.control.Button;
 
 
 /**
@@ -28,14 +26,11 @@ public class Main extends Application{
         stage.setMaxWidth(root.getMAX_WIDTH());
         stage.setMinHeight(root.getMAX_HEIGHT() * 0.5);
         stage.setMinWidth(root.getMAX_WIDTH() * 0.5); 
-        
-        root.getFlwTop().getChildren().addAll(new Button("adsadd"), new Button("Asdsadasd"), new Button("dsasdadsd"), new Button("asdasdsadsad"), 
-                new Button("adsadd"), new Button("Asdsadasd"), new Button("dsasdadsd"), new Button("asdasdsadsad"));
-        root.getFlwTop().setHgap(20); 
-        root.getVRight().getChildren().addAll(new Button("adsadd"), new Button("Asdsadasd"), new Button("dsasdadsd"), new Button("asdasdsadsad"), 
-                new Button("adsadd"), new Button("Asdsadasd"), new Button("dsasdadsd"), new Button("asdasdsadsad"));
-        root.getVRight().setSpacing(20);
+        stage.getScene().getStylesheets().add(getClass().getResource("/espol/edu/ec/resources/Style.css").toExternalForm());
         MyChart chart = new MyChart();
+        ControlPane tp = new ControlPane(root, stage, chart);
+        
+        
 
         Algorithms<Integer> algorithms = new Algorithms<>();
         ArrayList<Integer> datos = new ArrayList<>();
@@ -67,9 +62,9 @@ public class Main extends Application{
         datos2.add(17);
         datos2.add(22);
         datos2.add(27);
-
-        chart.plotInsertionSortTimes( algorithms.getInsertionSortTimes(datos));
-        chart.plotQuickSortTimes( algorithms.getQuickSortTimes(datos2));
+        
+        //chart.plotInsertionSortTimes( algorithms.getInsertionSortTimes(datos));
+        //chart.plotQuickSortTimes( algorithms.getQuickSortTimes(datos2));
 
         root.setCenter(chart.getChart());
 
