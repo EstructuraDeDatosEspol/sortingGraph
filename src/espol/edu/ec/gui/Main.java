@@ -32,39 +32,39 @@ public class Main extends Application{
         
         
 
-        Algorithms<Integer> algorithms = new Algorithms<>();
+        Algorithms<Integer> algorithms = new Algorithms<>(Integer:: compareTo);
         ArrayList<Integer> datos = new ArrayList<>();
         datos.add(1);
-        datos.add(3);
+        datos.add(8);
         datos.add(5);
         datos.add(6);
-        datos.add(7);
-        datos.add(9);
+        datos.add(3);
+        datos.add(90);
         datos.add(11);
         datos.add(13);
         datos.add(15);
-        datos.add(17);
+        datos.add(4);
         datos.add(16);
         datos.add(21);
-        datos.add(24);
+        datos.add(70);
 
         ArrayList<Integer> datos2 = new ArrayList<>();
-        datos2.add(2);
-        datos2.add(4);
-        datos2.add(6);
-        datos2.add(7);
+        datos2.add(1);
         datos2.add(8);
-        datos2.add(10);
-        datos2.add(12);
-        datos2.add(14);
+        datos2.add(5);
+        datos2.add(6);
+        datos2.add(3);
+        datos2.add(90);
+        datos2.add(11);
+        datos2.add(13);
+        datos2.add(15);
+        datos2.add(4);
         datos2.add(16);
-        datos2.add(18);
-        datos2.add(17);
-        datos2.add(22);
-        datos2.add(27);
+        datos2.add(21);
+        datos2.add(70);
         
-        //chart.plotInsertionSortTimes( algorithms.getInsertionSortTimes(datos));
-        //chart.plotQuickSortTimes( algorithms.getQuickSortTimes(datos2));
+        chart.plotInsertionSortTimes( algorithms.getInsertionSortTimes(datos));
+        chart.plotQuickSortTimes( algorithms.getQuickSortTimes(datos2));
 
         root.setCenter(chart.getChart());
 
