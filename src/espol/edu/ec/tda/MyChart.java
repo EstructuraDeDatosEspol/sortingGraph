@@ -1,6 +1,10 @@
 package espol.edu.ec.tda;
 
 import javafx.scene.chart.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+
 import java.util.List;
 
 
@@ -17,16 +21,20 @@ public class MyChart{
     private LineChart<Number, Number> chart;
 
 
-    XYChart.Series insertionLine;
-    XYChart.Series quickLine;
-    XYChart.Series mergeLine;
-    XYChart.Series stoogeLine;
+    LineChart.Series insertionLine;
+    LineChart.Series quickLine;
+    LineChart.Series mergeLine;
+    LineChart.Series stoogeLine;
 
     public MyChart() {
 
         xAxis = new NumberAxis();
+        xAxis.setLabel("Numero de Elementos (n)");
         yAxis = new NumberAxis();
+        yAxis.setLabel("Tiempo (ms)");
+
         chart = new LineChart<>(xAxis,yAxis);
+        VBox.setVgrow(chart, Priority.ALWAYS);
 
         insertionLine = new LineChart.Series();
         quickLine     = new LineChart.Series();
@@ -38,12 +46,17 @@ public class MyChart{
         mergeLine.setName("Merge Sort");
         stoogeLine.setName("Stooge Sort");
 
+        chart.getData().addAll(insertionLine, quickLine, mergeLine, stoogeLine);
+
     }
 
 
-    public void plotInsertionSortTimes(List<Entry> data){
+    public void setVisiblesInsertionLine(boolean visible){
+    }
 
-        chart.getData().add(insertionLine);
+    public void plotInsertionSortTimes(List<Entry> data){
+        if (!insertionLine.getData().isEmpty())
+            insertionLine.getData().clear();
         for(Entry entry: data){
             insertionLine.getData().add(new LineChart.Data<>(entry.getN(), entry.getTime()));
         }
@@ -51,8 +64,8 @@ public class MyChart{
 
 
     public void plotQuickSortTimes(List<Entry> data){
-
-        chart.getData().add(quickLine);
+        if (!quickLine.getData().isEmpty())
+            quickLine.getData().clear();
         for(Entry entry: data){
             quickLine.getData().add(new LineChart.Data<>(entry.getN(), entry.getTime()));
         }
@@ -60,6 +73,8 @@ public class MyChart{
 
 
     public void plotMergeSortTimes(List<Entry> data){
+        if (!mergeLine.getData().isEmpty())
+            mergeLine.getData().clear();
         for(Entry entry: data){
             mergeLine.getData().add(new LineChart.Data<>(entry.getN(), entry.getTime()));
         }
@@ -67,9 +82,18 @@ public class MyChart{
 
 
     public void plotStoogeSortTimes(List<Entry> data){
+        if (!stoogeLine.getData().isEmpty())
+            stoogeLine.getData().clear();
         for(Entry entry: data){
             stoogeLine.getData().add(new LineChart.Data<>(entry.getN(), entry.getTime()));
         }
+    }
+
+    public void clearLines(){
+        insertionLine.getData().clear();
+        quickLine.getData().clear();
+        mergeLine.getData().clear();
+        stoogeLine.getData().clear();
     }
 
 

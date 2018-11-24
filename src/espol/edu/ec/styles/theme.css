@@ -1,0 +1,88 @@
+.root{
+    -fx-background-color: white;
+    -fx-background-radius: 15px;
+}
+
+/*    chart   */
+
+.chart-vertical-grid-lines {
+    -fx-stroke: rgb(220,220,220);
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: rgb(220,220,220);
+}
+.default-color0.chart-series-line { -fx-stroke: #2c2e4e; }
+
+.jfx-spinner{
+    -jfx-radius: 10px;
+    -jfx-starting-angle: 45;
+}
+
+
+/*   options   */
+.jfx-button{
+    -fx-padding: 0.7em 0.57em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(77,102,204);
+    -fx-pref-width: 100;
+    -fx-pref-height: 20;
+    -fx-text-fill: WHITE;
+}
+
+.label{
+    -fx-font-weight: bold ;
+}
+
+.jfx-button{
+    -fx-font-weight: bold ;
+}
+
+.jfx-check-box{
+    -fx-font-weight: bold ;
+}
+.jfx-toggle-button1{
+    -jfx-toggle-color: rgb(244,126,83);
+}
+.jfx-toggle-button2{
+    -jfx-toggle-color: rgb(251,167,27);
+}
+.jfx-toggle-button3{
+    -jfx-toggle-color: rgb(117,195,117);
+}
+.jfx-toggle-button4{
+    -jfx-toggle-color: rgb(65,169,201);
+}
+
+
+/* tabPane */
+.jfx-tab-pane{
+    -jfx-tab-min-width:90px;
+    -jfx-background-color: white;
+}
+
+.tab-file{
+    -fx-background-color: rgb(248,248,248);
+}
+.tab-rand{
+    -fx-background-color: rgb(248,248,248);
+}
+
+.tab{
+    -fx-background-color: rgb(256,256,256);
+}
+.tab:selected{
+    -fx-background-color: rgb(248,248,248);
+    -fx-text-fill: rgb(5,5,5,5);
+}
+.tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: rgb(5,5,5);
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
