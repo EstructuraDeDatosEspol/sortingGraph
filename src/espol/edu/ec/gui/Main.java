@@ -1,11 +1,8 @@
 package espol.edu.ec.gui;
 
-import espol.edu.ec.tda.MyChart;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 import javafx.scene.image.Image;
 
 
@@ -23,8 +20,7 @@ public class Main extends Application{
         Scene scene = new Scene(gui.root);
         scene.getStylesheets().add("espol/edu/ec/styles/theme.css");
         stage.setScene(scene);
-        Image i = new Image("espol/edu/ec/styles/diagram.png");
-        stage.getIcons().add(i);
+        stage.getIcons().add(new Image("espol/edu/ec/styles/diagram.png"));
         stage.show();
     }
 
