@@ -111,7 +111,7 @@ public class FileWorker {
     
     public static boolean generateFile(List<List<Entry>> lista, int tamanio){
         String direccion = new File("resultados.txt").getAbsolutePath();
-        String algoritmos[] = {"insertion","quick","merge","stooge"};
+        String algoritmos[] = {"insert","quick","merge","stooge"};
         List<Integer> cantidades = new ArrayList<>();
         int iteraciones = 0;
         
