@@ -110,8 +110,9 @@ public class FileWorker {
     }
     
     public static boolean generateFile(List<List<Entry>> lista, int tamanio){
+        String tab = "\t";
         String direccion = new File("resultados.txt").getAbsolutePath();
-        String algoritmos[] = {"insert","quick","merge","stooge"};
+        String algoritmos[] = {"insert(ms)","quick(ms)","merge(ms)","stooge(ms)"};
         List<Integer> cantidades = new ArrayList<>();
         int iteraciones = 0;
         
@@ -125,15 +126,15 @@ public class FileWorker {
             //Primera Linea
             bld.delete(0, bld.length());
             bld.append("n");
-            bld.append("\t");
-            bld.append("\t");
+            bld.append(tab);
+            bld.append(tab);
             int pos = 0, posAlgoritmo = 0;
             
             for(List<Entry> l: lista){
                 if(!l.isEmpty()){
                     bld.append(algoritmos[posAlgoritmo]);
-                    bld.append("\t");
-                    bld.append("\t");
+                    bld.append(tab);
+                    bld.append(tab);
                     if((pos++) == 0){
                         for(Entry e: l)
                             cantidades.add(e.getN());
@@ -148,22 +149,25 @@ public class FileWorker {
             
             for(int i = 1; i<iteraciones; i++){
                 bld.append(String.valueOf(cantidades.get(i)));
-                bld.append("\t");
-                bld.append("\t");
+                bld.append(tab);
+                bld.append(tab);    
                 if(!lista.get(0).isEmpty()){
                     bld.append(lista.get(0).get(i));
-                    bld.append("\t");
-                    bld.append("\t");
+                    bld.append(tab);
+                    bld.append(tab);
+                    bld.append(tab);
                 }
                 if(!lista.get(1).isEmpty()){
                     bld.append(lista.get(1).get(i));
-                    bld.append("\t");
-                    bld.append("\t");
+                    bld.append(tab);
+                    bld.append(tab);
+                    bld.append(tab);
                 }
                 if(!lista.get(2).isEmpty()){
                     bld.append(lista.get(2).get(i));
-                    bld.append("\t");
-                    bld.append("\t");
+                    bld.append(tab);
+                    bld.append(tab);
+                    bld.append(tab);
                 }
                 if(!lista.get(3).isEmpty())
                     bld.append(lista.get(3).get(i));
