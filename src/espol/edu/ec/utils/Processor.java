@@ -1,6 +1,5 @@
 package espol.edu.ec.utils;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import espol.edu.ec.tda.Entry;
 import java.util.ArrayList;
 
@@ -13,17 +12,13 @@ public class Processor {
     
     
     List<List<Entry>> datos;
-    List<Entry> insertion;
-    List<Entry> quick;
-    List<Entry> merge;
-    List<Entry> stooge;
 
     public Processor() {
         datos = new ArrayList<>();
-        datos.add(insertion = new ArrayList<>());
-        datos.add(quick = new ArrayList<>());
-        datos.add(merge = new ArrayList<>());
-        datos.add(stooge = new ArrayList<>());
+        datos.add(new ArrayList<>());
+        datos.add(new ArrayList<>());
+        datos.add(new ArrayList<>());
+        datos.add(new ArrayList<>());
     }
     
     
@@ -31,31 +26,32 @@ public class Processor {
     final Algorithms<Integer> algorithms = new Algorithms<>(Integer::compareTo);
 
     public List<Entry> getInsertionSortTimes(List<Integer> elements){
-        insertion = algorithms.getInsertionSortTimes(elements);
-        return insertion;
+        datos.set(0, algorithms.getInsertionSortTimes(elements));
+        return datos.get(0);
     }
 
     public List<Entry> getQuickSortTimes(List<Integer> elements) {
-        quick =algorithms.getQuickSortTimes(elements); 
-        return quick;
+        datos.set(1, algorithms.getQuickSortTimes(elements)); 
+        return datos.get(1);
     }
 
     public List<Entry> getMergeSortTimes(List<Integer> elements){
-        merge = algorithms.getMergeSortTimes(elements);
-        return merge;
+        datos.set(2, algorithms.getMergeSortTimes(elements));
+        return datos.get(2);
     }
 
     public List<Entry> getStoogeSortTimes(List<Integer> elements){
-        stooge = algorithms.getStoogeSortTimes(elements); 
-        return stooge;
+        datos.set(3, algorithms.getStoogeSortTimes(elements)); 
+        return datos.get(3);
     }
 
-    
-    
     public List<List<Entry>> getDatos() {
         return datos;
     }
     
-    
-
+    public void limpiaDatos(){
+        for(int i = 0; i<datos.size(); i++){
+            datos.set(i, new ArrayList());
+        }
+    }
 }

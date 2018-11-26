@@ -295,6 +295,8 @@ public class GUIHelper {
             time ++;
         }
         isRun = false;
+        FileWorker.generateFile(processor.getDatos(), data.size());//Lista de datos
+        processor.limpiaDatos();
     }
 
     private boolean checkFileOptions(){

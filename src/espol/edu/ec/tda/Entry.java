@@ -20,5 +20,8 @@ public class Entry{
     public Double getTime() {
         return time;
     }
-
+    
+    public String toString(){
+        return String.valueOf(n) + String.valueOf(time);
+    }
 }

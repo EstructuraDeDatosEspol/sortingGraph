@@ -1,7 +1,11 @@
 package espol.edu.ec.utils;
 
+import espol.edu.ec.tda.Entry;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -103,5 +107,73 @@ public class FileWorker {
     public static boolean checkValidNumber(String number){
         Scanner sc = new Scanner(number.trim());
         return sc.hasNextInt();
+    }
+    
+    public static boolean generateFile(List<List<Entry>> lista, int tamanio){
+        String direccion = new File("resultados.txt").getAbsolutePath();
+        String algoritmos[] = {"insertion","quick","merge","stooge"};
+        List<Integer> cantidades = new ArrayList<>();
+        int iteraciones = 0;
+        
+	try (BufferedWriter bw = new BufferedWriter(new FileWriter(direccion))){
+            StringBuilder bld = new StringBuilder();
+            bld.append("Número de Datos: ");
+            bld.append(tamanio);
+            bw.write(bld.toString());
+            bw.newLine();
+            
+            //Primera Linea
+            bld.delete(0, bld.length());
+            bld.append("n");
+            bld.append("\t");
+            bld.append("\t");
+            int pos = 0, posAlgoritmo = 0;
+            
+            for(List<Entry> l: lista){
+                if(!l.isEmpty()){
+                    bld.append(algoritmos[posAlgoritmo]);
+                    bld.append("\t");
+                    bld.append("\t");
+                    if((pos++) == 0){
+                        for(Entry e: l)
+                            cantidades.add(e.getN());
+                        iteraciones = l.size();
+                    }
+                }
+                posAlgoritmo++;
+            }
+            bw.write(bld.toString());
+            bw.newLine();
+            bld.delete(0, bld.length());
+            
+            for(int i = 1; i<iteraciones; i++){
+                bld.append(String.valueOf(cantidades.get(i)));
+                bld.append("\t");
+                bld.append("\t");
+                if(!lista.get(0).isEmpty()){
+                    bld.append(lista.get(0).get(i));
+                    bld.append("\t");
+                    bld.append("\t");
+                }
+                if(!lista.get(1).isEmpty()){
+                    bld.append(lista.get(1).get(i));
+                    bld.append("\t");
+                    bld.append("\t");
+                }
+                if(!lista.get(2).isEmpty()){
+                    bld.append(lista.get(2).get(i));
+                    bld.append("\t");
+                    bld.append("\t");
+                }
+                if(!lista.get(3).isEmpty())
+                    bld.append(lista.get(3).get(i));
+                bw.write(bld.toString());
+                bw.newLine();
+                bld.delete(0, bld.length());
+            }
+        } catch (IOException ex) {
+            System.out.println("Ha ocurrido un error al escribir el archivo. " + ex.getMessage());
+        }
+        return true;
     }
 }
