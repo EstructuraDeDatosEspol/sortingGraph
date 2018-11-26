@@ -16,6 +16,11 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.List;
+import java.util.function.UnaryOperator;
+import javafx.concurrent.Task;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 
 public class GUIHelper {
@@ -73,8 +78,10 @@ public class GUIHelper {
     //<------------------ Sección Chart -------------->
     VBox chartShower;
     MyChart chart;
-    JFXSpinner spinner;
-
+    ImageView load;
+    
+    private int time;
+    private boolean isRun;
 
     public GUIHelper() {
         this.root = new StackPane();
@@ -101,10 +108,9 @@ public class GUIHelper {
         chartShower.setAlignment(Pos.TOP_RIGHT);
         chartShower.setPadding(new Insets(10));
         chart = new MyChart();
-        spinner  = new JFXSpinner();
-        spinner.setVisible(false);
-        spinner.setDisable(true);
-        chartShower.getChildren().addAll(chart.getChart(), spinner);
+        load = new ImageView(new Image("espol/edu/ec/styles/load.gif", 50, 50, true, true));
+        load.setVisible(false);
+        chartShower.getChildren().addAll(chart.getChart(), load);
 
         HBox.setHgrow(chartShower, Priority.ALWAYS);
         all = new HBox();
@@ -113,6 +119,21 @@ public class GUIHelper {
         loadHandlers();
 
         this.root.getChildren().add(all);
+    }
+    
+    /**
+     * Formato de solo numero para los text fields
+     */
+    private void formato() {
+         UnaryOperator<TextFormatter.Change> filter = change -> {
+            if (change.getText().matches("[0-9]*"))
+                return change;
+            return null;
+        };
+        TextFormatter<String> textFormatter1 = new TextFormatter<>(filter);
+        TextFormatter<String> textFormatter2 = new TextFormatter<>(filter);
+        fromTexfield.setTextFormatter(textFormatter1);
+        untilTextfield.setTextFormatter(textFormatter2);
     }
 
     private void loadTapPane(){
@@ -135,7 +156,7 @@ public class GUIHelper {
         fromTexfield = new JFXTextField();
         untilTextfield = new JFXTextField();
         fromUntilSection.getChildren().addAll(from, fromTexfield, until, untilTextfield);
-
+        formato();
         noFileErrorLabel = new Label();
         noFileErrorLabel.setTextFill(Color.RED);
         loadFileSectionContent.getChildren().addAll(textPath, openFileButton);
@@ -206,7 +227,6 @@ public class GUIHelper {
     private void loadHandlers(){
         run.setOnAction(event -> {
 
-            Platform.runLater(()-> startSpinner());
             chart.clearLines();
 
             if(fromFile.isSelected()){
@@ -214,27 +234,26 @@ public class GUIHelper {
                     return;
                 }
                 List<Integer> data;
-                Platform.runLater(()-> startSpinner());
+                time = 0;
+                isRun = true;
+                startSpinner();
                 if(readAll.isSelected())
                     data = FileWorker.loadNumbersFromFile(textPath.getText());
                 else{
                     data = FileWorker.loadNumbersFromFile(textPath.getText(), Integer.parseInt(fromTexfield.getText()),Integer.parseInt(untilTextfield.getText()));
                 }
-                Platform.runLater(()-> stopSpinner());
                 Platform.runLater(()-> plotLines(data));
-
-
             }
 
             if(fromRandom.isSelected()){
                 if(!checkRandomOptions() || !checkToggleOptions()){
                     return;
                 }
-
-                Platform.runLater(()-> startSpinner());
+                time = 0;
+                isRun = true;
+                startSpinner();
                 List<Integer> data = FileWorker.loadRandomNumbers(Integer.parseInt(cantTextField.getText()));
-                Platform.runLater(()-> stopSpinner());
-                Platform.runLater(()-> plotLines(data));
+                Platform.runLater(()->plotLines(data));
 
             }
         });
@@ -259,15 +278,23 @@ public class GUIHelper {
     }
 
     private void plotLines(List<Integer> data){
-
-        if (insertionSortSelector.isSelected())
+        if (insertionSortSelector.isSelected()){
             chart.plotInsertionSortTimes(processor.getInsertionSortTimes(data));
-        if (quickSortSelector.isSelected())
+            time ++;
+        }
+        if (quickSortSelector.isSelected()){
             chart.plotQuickSortTimes(processor.getQuickSortTimes(data));
-        if (mergeSortSelector.isSelected())
+            time ++;
+        }
+        if (mergeSortSelector.isSelected()){
             chart.plotMergeSortTimes(processor.getMergeSortTimes(data));
-        if (stoogeSortSelector.isSelected())
+            time ++;
+        }
+        if (stoogeSortSelector.isSelected()){
             chart.plotStoogeSortTimes(processor.getStoogeSortTimes(data));
+            time ++;
+        }
+        isRun = false;
     }
 
     private boolean checkFileOptions(){
@@ -300,16 +327,39 @@ public class GUIHelper {
                 stoogeSortSelector.isSelected();
     }
     private void startSpinner(){
-        spinner.setDisable(false);
-        spinner.setVisible(true);
+        PlotTask task = new PlotTask();
+        task.setOnSucceeded(e ->{
+            Platform.runLater(() ->load.setVisible(false));
+        }); 
+        task.setOnFailed(e-> task.getException().printStackTrace());
+        Thread t = new Thread(task);
+        t.start();
+    }
 
-    }
-    private void stopSpinner(){
-        spinner.setDisable(true);
-        spinner.setVisible(false);
-    }
 
     public void setOwnerStage(Stage s){
         this.owner = s;
+    }
+    
+    private class PlotTask extends Task<Integer>{
+
+        
+        @Override
+        protected Integer call() {
+            load.setVisible(true); 
+            int n = 0;
+            if (insertionSortSelector.isSelected()) n++;
+            if (quickSortSelector.isSelected()) n++;
+            if (mergeSortSelector.isSelected()) n++;
+            if (stoogeSortSelector.isSelected()) n++;
+            
+            while(time <= n && isRun){
+                this.updateProgress(time, n);
+            }
+            return n;
+        }
+        
+ 
+    
     }
 }
