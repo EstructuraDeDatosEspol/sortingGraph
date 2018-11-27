@@ -111,7 +111,7 @@ public class GUIHelper {
         load = new ImageView(new Image("espol/edu/ec/styles/load.gif", 50, 50, true, true));
         load.setVisible(false);
         chartShower.getChildren().addAll(chart.getChart(), load);
-
+        
         HBox.setHgrow(chartShower, Priority.ALWAYS);
         all = new HBox();
         all.getChildren().addAll(chartShower, optionsSection);
@@ -295,6 +295,12 @@ public class GUIHelper {
             time ++;
         }
         isRun = false;
+        ResultView rv = new ResultView(owner);
+        rv.showTable(processor.getDatos(), data.size());
+        chart.getChart().setOnMouseClicked(e->{
+            if(rv.isShow())
+                rv.show();
+        });
         FileWorker.generateFile(processor.getDatos(), data.size());//Lista de datos
         processor.limpiaDatos();
     }
