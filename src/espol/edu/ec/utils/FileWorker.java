@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -110,74 +111,53 @@ public class FileWorker {
     }
     
     public static boolean generateFile(List<List<Entry>> lista, int tamanio){
-        String tab = "\t";
-        String direccion = new File("resultados.txt").getAbsolutePath();
-        String algoritmos[] = {"insert(ms)","quick(ms)","merge(ms)","stooge(ms)"};
-        List<Integer> cantidades = new ArrayList<>();
-        int iteraciones = 0;
         
-	try (BufferedWriter bw = new BufferedWriter(new FileWriter(direccion))){
-            StringBuilder bld = new StringBuilder();
-            bld.append("Número de Datos: ");
-            bld.append(tamanio);
-            bw.write(bld.toString());
-            bw.newLine();
+        
+        String[] nombres = {"insertionSort (ms)","quickSort (ms)","mergeSort (ms)","stoogeSort (ms)"};
+        String tab = "\t";
+        String salto = "\n";
+        
+        
+        ArrayList<Integer> indices = new ArrayList<>();
+        
+        try{
+            //agrega los headers
+            PrintWriter pw = new PrintWriter(new File("resultados.txt"));
+            pw.append("Numero de Elementos: ");
+            pw.append(String.valueOf(tamanio));
+            pw.append(salto);
+            pw.append("n");
             
-            //Primera Linea
-            bld.delete(0, bld.length());
-            bld.append("n");
-            bld.append(tab);
-            bld.append(tab);
-            int pos = 0, posAlgoritmo = 0;
-            
-            for(List<Entry> l: lista){
-                if(!l.isEmpty()){
-                    bld.append(algoritmos[posAlgoritmo]);
-                    bld.append(tab);
-                    bld.append(tab);
-                    if((pos++) == 0){
-                        for(Entry e: l)
-                            cantidades.add(e.getN());
-                        iteraciones = l.size();
-                    }
+            for (int i = 0 ; i< lista.size(); i++){
+                if(!lista.get(i).isEmpty()){
+                    indices.add(i);
+                    pw.append(tab);
+                    pw.append(nombres[i]);
                 }
-                posAlgoritmo++;
             }
-            bw.write(bld.toString());
-            bw.newLine();
-            bld.delete(0, bld.length());
+            pw.append(salto);
             
-            for(int i = 1; i<iteraciones; i++){
-                bld.append(String.valueOf(cantidades.get(i)));
-                bld.append(tab);
-                bld.append(tab);    
-                if(!lista.get(0).isEmpty()){
-                    bld.append(lista.get(0).get(i));
-                    bld.append(tab);
-                    bld.append(tab);
-                    bld.append(tab);
+            //agrega los tiempos
+            
+            for(int i =0; i< lista.get(indices.get(0)).size(); i++){
+                pw.append(String.valueOf(lista.get(indices.get(0)).get(i).getN()));
+                pw.append(tab);
+                pw.append(tab);
+                pw.append(tab);
+                for(Integer indice: indices){
+                    pw.append(String.valueOf(lista.get(indice).get(i).getTime()));
+                    pw.append(tab);
+                    pw.append(tab);
+                    pw.append(tab);
                 }
-                if(!lista.get(1).isEmpty()){
-                    bld.append(lista.get(1).get(i));
-                    bld.append(tab);
-                    bld.append(tab);
-                    bld.append(tab);
-                }
-                if(!lista.get(2).isEmpty()){
-                    bld.append(lista.get(2).get(i));
-                    bld.append(tab);
-                    bld.append(tab);
-                    bld.append(tab);
-                }
-                if(!lista.get(3).isEmpty())
-                    bld.append(lista.get(3).get(i));
-                bw.write(bld.toString());
-                bw.newLine();
-                bld.delete(0, bld.length());
+                pw.append(salto);
             }
-        } catch (IOException ex) {
-            System.out.println("Ha ocurrido un error al escribir el archivo. " + ex.getMessage());
+            pw.close();
+            
+        }catch(FileNotFoundException e){
+            
         }
+        
         return true;
     }
 }

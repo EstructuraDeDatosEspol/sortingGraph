@@ -17,6 +17,8 @@ import java.util.List;
 class Algorithms<E> {
     private Comparator<E> f;
     private int steps = 5;
+    private int fraction = 150;
+    private int max = 1000;
 
     protected Algorithms(Comparator<E> f){
         this.f = f;
@@ -30,13 +32,13 @@ class Algorithms<E> {
      */
     List<Entry> getInsertionSortTimes(List<E> elements){
         
-        if(elements.size() > 1000)
-             steps= elements.size()/ 100;
+        if(elements.size() > max)
+             steps = elements.size()/ fraction;
         List<Entry> results = new ArrayList<>();
         List<E> tempList;
         double start;
         double end;
-        for (int n = 0; n <= elements.size(); n += steps){
+        for (int n = 1; n <= elements.size(); n += steps){
             tempList = copyElements(elements.subList(0, n));
             start = System.currentTimeMillis();
             insertionSort(tempList);
@@ -44,7 +46,6 @@ class Algorithms<E> {
 
             results.add(new Entry(n, end - start));
         }
-        System.out.println(results.size());
 
         return results;
     }
@@ -56,13 +57,13 @@ class Algorithms<E> {
      * @return  Lista con entries de clave/valor; clave: numero de elementos "n", valor: tiempo de ejecucion respectivo
      */
     List<Entry> getQuickSortTimes(List<E> elements){
-        if(elements.size() > 2000)
-             steps= elements.size()/ 100;
+        if(elements.size() > max)
+             steps= elements.size()/ fraction;
         List<Entry> results = new ArrayList<>();
         List<E> tempList;
         double start;
         double end;
-        for (int n = 0; n <= elements.size(); n += steps){
+        for (int n = 1; n <= elements.size(); n += steps){
             tempList = copyElements(elements.subList(0, n));
             start = System.currentTimeMillis();
             quickSort(tempList);
@@ -79,8 +80,8 @@ class Algorithms<E> {
      * @return  Lista con entries de clave/valor; clave: numero de elementos "n", valor: tiempo de ejecucion respectivo
      */
     List<Entry> getMergeSortTimes(List<E> elements){
-        if(elements.size() > 2000)
-             steps= elements.size()/ 100;
+        if(elements.size() > max)
+             steps= elements.size()/ fraction;
         List<Entry> results = new ArrayList<>();
         List<E> tempList;
         double start;
@@ -104,20 +105,19 @@ class Algorithms<E> {
      * @return  Lista con entries de clave/valor; clave: numero de elementos "n", valor: tiempo de ejecucion respectivo
      */
     List<Entry> getStoogeSortTimes(List<E> elements){
-        if(elements.size() > 2000)
-             steps= elements.size()/ 100;
+        if(elements.size() > max)
+             steps= elements.size()/ fraction;
         List<Entry> results = new ArrayList<>();
         List<E> tempList;
         double start;
         double end;
-        for (int n = 0; n <= elements.size(); n += steps){
+        for (int n = 1; n <= elements.size(); n += steps){
             tempList = copyElements(elements.subList(0, n));
             start = System.currentTimeMillis();
             stoogeSort(tempList);
             end = System.currentTimeMillis();
             results.add(new Entry(n, end - start));
         }
-        System.out.println(results.size());
 
         return results;
     }
