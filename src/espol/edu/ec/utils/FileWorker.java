@@ -73,21 +73,25 @@ public class FileWorker {
      */
     public static List<Integer> loadNumbersFromFile(String path, int start, int end ){
         List<Integer> numbers = new ArrayList<>();
-
+        
+        if(start > end){
+            int contenedor = end;
+            end = start;
+            start = contenedor;
+        }
         Scanner s;
 
         try {
             String line;
             s = new Scanner(new File(path));
             int actual = 0;
-            while (actual++ <= start){
+            while (++actual < start)
                 s.nextLine();
-            }
 
+            System.out.println("desde "+start+" "+end);
 
-            while ((actual++ < end) && s.hasNextLine()) {
+            while ((actual++ <= end) && s.hasNextLine()) {
                 line = s.nextLine();
-                actual++;
                 if(checkValidNumber(line))
                     numbers.add(Integer.parseInt(line));
             }
@@ -106,7 +110,11 @@ public class FileWorker {
      */
     public static boolean checkValidNumber(String number){
         Scanner sc = new Scanner(number.trim());
-        return sc.hasNextInt();
+        if(!sc.hasNextInt() )
+            return false;
+        if(sc.nextInt() < 1)
+            return false;
+        return true;
     }
     
     public static boolean generateFile(List<List<Entry>> lista, int tamanio){

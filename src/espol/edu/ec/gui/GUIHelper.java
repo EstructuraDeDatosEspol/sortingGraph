@@ -242,7 +242,9 @@ public class GUIHelper {
                 if(readAll.isSelected())
                     data = FileWorker.loadNumbersFromFile(textPath.getText());
                 else{
+                    
                     data = FileWorker.loadNumbersFromFile(textPath.getText(), Integer.parseInt(fromTexfield.getText()),Integer.parseInt(untilTextfield.getText()));
+                    System.out.println(data);
                 }
                 Platform.runLater(()-> plotLines(data));
             }
@@ -311,6 +313,12 @@ public class GUIHelper {
         if(textPath.getText().isEmpty()){
             noFileErrorLabel.setText("** debe selecionar un archivo.");
             return false;
+        }
+        if(!fromUntilSection.isDisable()){
+            if(!FileWorker.checkValidNumber(fromTexfield.getText()) || !FileWorker.checkValidNumber(untilTextfield.getText())){
+                noFileErrorLabel.setText("** datos incorrectos.");
+                return false;
+            }
         }
         noFileErrorLabel.setText("");
         return true;
