@@ -37,14 +37,39 @@ import javafx.stage.StageStyle;
  */
 public class ResultView {
     
+    /**
+     * Local Stage
+     */
     private final Stage stage;
+    /**
+     * Owner Stage
+     */
     private final Stage owner;
+    /**
+     * Contenedor principal
+     */
     private final VBox root;
+    /**
+     * Tabla de resultados
+     */
     private JFXTreeTableView<DataTable> results;
+    /**
+     * Boton de cerrar ventana
+     */
     private final StackPane close;
+    /**
+     * Indicador de numero de elementos
+     */
     private final Text title;
+    /**
+     * Condicion de haber mostrado la pantlla
+     */
     private boolean isShow;
     
+    /**
+     * Constructor de la clase
+     * @param owner Owner Stage
+     */
     public ResultView(Stage owner){
         stage = new Stage();
         root = new VBox();
@@ -55,6 +80,9 @@ public class ResultView {
         init();
     }
 
+    /**
+     * Inicializacion de la pantalla
+     */
     private void init() {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.initOwner(owner);
@@ -67,6 +95,9 @@ public class ResultView {
         loadPane();
     }
     
+    /**
+     * Cargar elementos
+     */
     private void loadPane() {
         HBox closePane = new HBox(close);
         closePane.setAlignment(Pos.BASELINE_RIGHT);
@@ -80,6 +111,10 @@ public class ResultView {
         });
     }
     
+    /**
+     * Creador de boton de cerrar ventana
+     * @return 
+     */
     private StackPane closeButton(){
         StackPane btn = new StackPane();
         btn.setAlignment(Pos.CENTER); 
@@ -110,6 +145,11 @@ public class ResultView {
         return btn;
     }
     
+    /**
+     * Creador de tabla de resultados
+     * @param datos valores para ubicar
+     * @param size total de datos
+     */
     public void showTable(List<List<Entry>> datos, int size) {
         title.setText(title.getText() + size);
         String algoritmos[] = {"insert(ms)", "quick(ms)", "merge(ms)", "stooge(ms)"};
@@ -170,15 +210,25 @@ public class ResultView {
         //showIn();
     }
     
+    /**
+     * Mostrar pantalla
+     */
     public void show(){
         stage.show();
         showIn();
     }
     
+    /**
+     * Condicion de poder mostrar
+     * @return boolean
+     */
     public boolean isShow() {
         return isShow;
     }
     
+    /**
+     * Posicion relativa de la pantalla
+     */
     private void showIn() {
         double x = owner.getX() + (owner.getWidth() - stage.getWidth()) - 10;
         double y = owner.getY() + (owner.getHeight() - stage.getHeight()) - 10;

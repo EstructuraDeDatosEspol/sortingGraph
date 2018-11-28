@@ -18,6 +18,7 @@ import java.io.File;
 import java.util.List;
 import java.util.function.UnaryOperator;
 import javafx.concurrent.Task;
+import javafx.scene.Cursor;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -111,6 +112,7 @@ public class GUIHelper {
         load = new ImageView(new Image("espol/edu/ec/styles/load.gif", 50, 50, true, true));
         load.setVisible(false);
         chartShower.getChildren().addAll(chart.getChart(), load);
+        chart.getChart().setCursor(Cursor.HAND); 
         
         HBox.setHgrow(chartShower, Priority.ALWAYS);
         all = new HBox();
