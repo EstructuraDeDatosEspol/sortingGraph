@@ -11,7 +11,6 @@
 .chart-horizontal-grid-lines {
     -fx-stroke: rgb(220,220,220);
 }
-.default-color0.chart-series-line { -fx-stroke: #2c2e4e; }
 
 .jfx-spinner{
     -jfx-radius: 10px;

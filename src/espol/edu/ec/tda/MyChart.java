@@ -1,7 +1,6 @@
 package espol.edu.ec.tda;
 
 import javafx.scene.chart.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -21,10 +20,10 @@ public class MyChart{
     private LineChart<Number, Number> chart;
 
 
-    LineChart.Series insertionLine;
-    LineChart.Series quickLine;
-    LineChart.Series mergeLine;
-    LineChart.Series stoogeLine;
+    LineChart.Series<Number, Number> insertionLine;
+    LineChart.Series<Number, Number> quickLine;
+    LineChart.Series<Number, Number> mergeLine;
+    LineChart.Series<Number, Number> stoogeLine;
 
     public MyChart() {
 
@@ -62,7 +61,7 @@ public class MyChart{
         }
     }
 
-
+    
     public void plotQuickSortTimes(List<Entry> data){
         if (!quickLine.getData().isEmpty())
             quickLine.getData().clear();
@@ -72,6 +71,7 @@ public class MyChart{
     }
 
 
+    
     public void plotMergeSortTimes(List<Entry> data){
         if (!mergeLine.getData().isEmpty())
             mergeLine.getData().clear();
@@ -80,7 +80,7 @@ public class MyChart{
         }
     }
 
-
+    
     public void plotStoogeSortTimes(List<Entry> data){
         if (!stoogeLine.getData().isEmpty())
             stoogeLine.getData().clear();
@@ -89,6 +89,7 @@ public class MyChart{
         }
     }
 
+    
     public void clearLines(){
         insertionLine.getData().clear();
         quickLine.getData().clear();
@@ -96,11 +97,12 @@ public class MyChart{
         stoogeLine.getData().clear();
     }
 
-
+    
     public void clear() {
         chart.getData().clear();
     }
 
+    
     public LineChart<Number, Number> getChart(){
         return this.chart;
     }
