@@ -38,7 +38,7 @@ class Algorithms<E> {
         List<E> tempList;
         double start;
         double end;
-        for (int n = 1; n <= elements.size(); n += steps){
+        for (int n = 0; n <= elements.size(); n += steps){
             tempList = copyElements(elements.subList(0, n));
             start = System.currentTimeMillis();
             insertionSort(tempList);
@@ -63,7 +63,7 @@ class Algorithms<E> {
         List<E> tempList;
         double start;
         double end;
-        for (int n = 1; n <= elements.size(); n += steps){
+        for (int n = 0; n <= elements.size(); n += steps){
             tempList = copyElements(elements.subList(0, n));
             start = System.currentTimeMillis();
             quickSort(tempList);
@@ -111,7 +111,7 @@ class Algorithms<E> {
         List<E> tempList;
         double start;
         double end;
-        for (int n = 1; n <= elements.size(); n += steps){
+        for (int n = 0; n <= elements.size(); n += steps){
             tempList = copyElements(elements.subList(0, n));
             start = System.currentTimeMillis();
             stoogeSort(tempList);
