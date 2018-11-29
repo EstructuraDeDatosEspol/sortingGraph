@@ -33,7 +33,7 @@ class Algorithms<E> {
     List<Entry> getInsertionSortTimes(List<E> elements){
         
         if(elements.size() > max)
-             steps = elements.size()/ fraction;
+             steps = Math.floorDiv(elements.size(), fraction);
         List<Entry> results = new ArrayList<>();
         List<E> tempList;
         double start;
@@ -58,7 +58,7 @@ class Algorithms<E> {
      */
     List<Entry> getQuickSortTimes(List<E> elements){
         if(elements.size() > max)
-             steps= elements.size()/ fraction;
+             steps = Math.floorDiv(elements.size(), fraction);
         List<Entry> results = new ArrayList<>();
         List<E> tempList;
         double start;
@@ -81,7 +81,7 @@ class Algorithms<E> {
      */
     List<Entry> getMergeSortTimes(List<E> elements){
         if(elements.size() > max)
-             steps= elements.size()/ fraction;
+             steps = Math.floorDiv(elements.size(), fraction);
         List<Entry> results = new ArrayList<>();
         List<E> tempList;
         double start;
@@ -106,7 +106,7 @@ class Algorithms<E> {
      */
     List<Entry> getStoogeSortTimes(List<E> elements){
         if(elements.size() > max)
-             steps= elements.size()/ fraction;
+            steps = Math.floorDiv(elements.size(), fraction);
         List<Entry> results = new ArrayList<>();
         List<E> tempList;
         double start;

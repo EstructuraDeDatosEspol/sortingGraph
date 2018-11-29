@@ -66,6 +66,9 @@ public class ResultView {
      */
     private boolean isShow;
     
+    
+    Double x, y;
+    
     /**
      * Constructor de la clase
      * @param owner Owner Stage
@@ -84,9 +87,10 @@ public class ResultView {
      * Inicializacion de la pantalla
      */
     private void init() {
-        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.initOwner(owner);
         stage.initModality(Modality.WINDOW_MODAL); 
+        root.getStyleClass().add("result");
         Scene scene = new Scene(root);
         scene.getStylesheets().add("espol/edu/ec/styles/theme.css");
         stage.setScene(scene);
@@ -105,10 +109,18 @@ public class ResultView {
         titlePane.setAlignment(Pos.BASELINE_LEFT);
         titlePane.setPadding(new Insets(5, 5, 5, 5)); 
         root.getChildren().addAll(closePane, titlePane);
-        root.setOnMouseDragged(e-> {
-            stage.setX(e.getScreenX());
-            stage.setY(e.getScreenY()); 
+       
+        
+        root.setOnMousePressed((event) -> {
+            x = stage.getX() - event.getScreenX();
+            y = stage.getY() - event.getScreenY();
         });
+        
+        root.setOnMouseDragged((event) -> {
+            stage.setX(event.getScreenX() + x);
+            stage.setY(event.getScreenY() + y);
+        });
+        
     }
     
     /**

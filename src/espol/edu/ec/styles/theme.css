@@ -85,3 +85,12 @@
     -fx-font-weight: bold;
 }
 
+/*<------  result ------->*/
+.result{
+    -fx-padding: 10;
+    
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 4, 4); 
+    -fx-background-color: derive(cadetblue, -20%); 
+    -fx-background-insets: 12; 
+    -fx-background-radius: 6;
+}
